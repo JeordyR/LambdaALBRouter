@@ -12,7 +12,7 @@ Currently there is nothing implemented for handling templates or returning HTML,
 ## Example
 
 ```
-from LambdaALBRouter import router, abort, json_response
+from LambdaALBRouter import router, abort, response
 
 app = router.ALBRouter()
 
@@ -21,11 +21,11 @@ def lambda_handler(event, _context):
 
 @app.route("/")
 def hello():
-    json_response("Hello world!")
+    response("Hello world!")
 
 @app.route("/hello/<user>")
 def hello_user(user):
-    json_response(f"Hello {user}!")
+    response(f"Hello {user}!")
 
 @app.route("/update/<user>", route_methods=["POST"])
 def update_user(user, context):
@@ -38,7 +38,7 @@ def update_user(user, context):
 
     # Update user in a database...
 
-    return json_response(
+    return response(
         {
             "message": f"Updated {user}!",
             "context": context.__dict__

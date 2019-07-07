@@ -21,11 +21,11 @@ def lambda_handler(event, _context):
 
 @app.route("/")
 def hello():
-    response("Hello world!")
+    return response("Hello world!")
 
 @app.route("/hello/<user>")
 def hello_user(user):
-    response(f"Hello {user}!")
+    return response(f"Hello {user}!")
 
 @app.route("/update/<user>", route_methods=["POST"])
 def update_user(user, context):

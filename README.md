@@ -33,6 +33,9 @@ def update_user(user, context):
     query_string = context.query_string
     request_headers = context.request_headers
 
+    if not "something" in input_data.keys():
+        abort(400, "Missing required input 'something'")
+
     # Update user in a database...
 
     return json_response(

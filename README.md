@@ -1,18 +1,15 @@
 # LambdaALBRouter
----
 
 LambdaALBRouter is a small package with flask-like syntax for routing requests from an AWS ALB in Lambda. It parses out all relavent information from the triggering event and passes it through to a matching registered route. With exceptions handled and turned into json responses, utilities for quickly exiting and returning json it is very easy to make quick APIs with ALB-fronted Lambdas in AWS.
 
 Currently there is nothing implemented for handling templates or returning HTML, but that will be added in the future. Runtime data is stored in a separate class and not stored in the instance of ALBRouter to allow that instance to be a global variable (and cached between lambda executions) without running into caching issues.
 
 ## Installing
----
 
 `pip install -U LambdaALBRouter`
 
 
 ## Example
----
 
 ```
 from LambdaALBRouter import router, abort, json_response

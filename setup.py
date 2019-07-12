@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='LambdaALBRouter',
-    version='0.1',
+    version='0.2',
     author="Jeordy Rebbereh",
     author_email="jeordy@gmail.com",
     description="A package with flask-like syntax for routing requests from an AWS ALB in Lambda",

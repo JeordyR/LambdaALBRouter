@@ -4,6 +4,7 @@ LambdaALBRouter.utils
 Implements various utilities to help with input/output processing.
 """
 
+import json
 import logging
 
 # Setup logging
@@ -37,6 +38,13 @@ def response(
 
     if headers and isinstance(headers, dict):
         response_headers.update(headers)
+
+    if isinstance(response_body, dict):
+        response_body = json.dumps(response_body)
+    elif isinstance(response_body, str):
+        pass
+    else:
+        response_body = f"{response_body}"
 
     result = {
         "statusCode": code,

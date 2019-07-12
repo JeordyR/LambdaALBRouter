@@ -83,9 +83,9 @@ class ALBRouter():
 
         # Look for a registered route matching the call details
         call_match = self.__find_call_match(call_path, call_method)
-        logger.debug(f"Found matching call: {call_match}")
 
         if call_match:
+            logger.debug(f"Found matching call: {call_match}")
             args, exec_function = call_match
 
             # Check if the exec function is expecting the Context object and pass it if so

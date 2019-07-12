@@ -78,7 +78,7 @@ class InternalServerError(HTTPException):
     description = "500 Internal Server Error"
 
 
-class NotImplemented(HTTPException):
+class EndpointNotImplemented(HTTPException):
     """
     501 NotImplemented, raised when the requested resource is planned, but not yet implemented
     """
@@ -129,7 +129,6 @@ def catch_exception(f):
 
 # Find all HTTP exceptions implemented in this module and map their code to the exception
 exceptions = {}
-is_http_exception = False
 
 
 def _find_exceptions():
@@ -137,6 +136,8 @@ def _find_exceptions():
     Loops through all global times in the module and finds subclasses of HTTPException
     When located, store them as a mapping to their HTTP status code
     """
+    is_http_exception = False
+
     for _name, obj in globals().items():
         try:
             is_http_exception = issubclass(obj, HTTPException)
@@ -154,7 +155,7 @@ _find_exceptions()
 del _find_exceptions
 
 
-def abort(code: str, message: str = None) -> None:
+def abort(code: int, message: str = None) -> None:
     """
     Simple function to allow easy error throwing from app routes. Takes the code and message and raises
     an appropriate exception based on that code, passing the message through.

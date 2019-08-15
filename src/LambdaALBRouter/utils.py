@@ -11,13 +11,14 @@ import logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
+
 def response(
         response_body,
         code: int = 200,
         description: str = "200 OK",
         is_base64_encoded: bool = False,
         headers: dict = None
-    ) -> dict:
+) -> dict:
     """
     Formats a dictionary response with the fields required for ALB allowing optional overrides of the values.
     Note for JSON responses that the ALB will handle the JSON serialization,
@@ -36,15 +37,19 @@ def response(
         "Content-Type": "application/json"
     }
 
-    if headers and isinstance(headers, dict):
-        response_headers.update(headers)
-
     if isinstance(response_body, dict):
         response_body = json.dumps(response_body)
     elif isinstance(response_body, str):
-        pass
+        try:
+            _ = json.loads(response_body)
+        except json.decoder.JSONDecodeError:
+            response_headers["Content-Type"] = "text/html"
     else:
         response_body = f"{response_body}"
+        response_headers["Content-Type"] = "text/html"
+
+    if headers and isinstance(headers, dict):
+        response_headers.update(headers)
 
     result = {
         "statusCode": code,
